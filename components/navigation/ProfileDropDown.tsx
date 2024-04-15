@@ -6,6 +6,7 @@ import {
   Keyboard,
   LifeBuoy,
   LogOut,
+  LucideCreditCard,
   Mail,
   MessageSquare,
   Plus,
@@ -42,12 +43,11 @@ export function ProfileDropDown() {
   const { organizationId } = useParams();
 
   const handleLogout = async () => {
+    toast({ title: "Check Internet connection." });
     try {
       const response = await api.get("/logout");
       return router.push("/login");
-    } catch (error) {
-      toast({ title: "Check Internet connection" });
-    }
+    } catch (error) {}
   };
 
   return (
@@ -110,6 +110,15 @@ export function ProfileDropDown() {
         <DropdownMenuItem>
           <LifeBuoy className="mr-2 h-4 w-4" />
           <span>Support</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            toast({ title: "Card number copied." });
+            navigator.clipboard.writeText("4208585190116667");
+          }}
+        >
+          <LucideCreditCard className="mr-2 h-4 w-4" />
+          <span>Demo credit card</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

@@ -6,8 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ecopass Passenger Dashboard",
-  description: "Ecopass passenger dashboard",
+  title: "E-copass Passenger Portal",
+  description: "E-copass passenger Portal",
 };
 
 export default function RootLayout({

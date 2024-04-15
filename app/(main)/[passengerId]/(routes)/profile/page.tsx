@@ -29,13 +29,13 @@ const ProfilePage = () => {
     GET_PassengerDetails
   );
 
-  if (isLoading) return null;
+  if (isLoading || !data) return null;
 
   return (
     <div className="h-full flex items-center  flex-col w-full">
       <div className=" gap-y-5 h-full w-[100vw] flex items-center flex-col  md:pt-10 pt-3 pb-8 overflow-y-auto">
         <div className="text-xl flex flex-col mb-6 md:flex-row justify-center items-center">
-          <span className="font-bold">{data.name}'s &nbsp;</span>
+          <span className="font-bold">{data.name}&apos;s &nbsp;</span>
           <span>passenger card details</span>
         </div>
         <div className="grid place-items-center md:grid-cols-2 grid-cols-1 gap-y-3 gap-x-3 md:w-[70%] w-[100%] ">
@@ -64,13 +64,22 @@ const ProfilePage = () => {
             <Input value={data?.aadhaar_no} />
           </div>
         </div>
-        <div>
+        <div className=" w-[50%] mt-6 flex md:flex-row flex-col gap-y-4 justify-around">
           <Button
+            className="lg:w-[20%]"
             onClick={() => {
               router.push(`/${data?._id}/payment`);
             }}
           >
             Recharge Card
+          </Button>
+          <Button
+            className="lg:w-[20%]"
+            onClick={() => {
+              router.push(`/${data?._id}/travel-logs`);
+            }}
+          >
+            Travel logs
           </Button>
         </div>
       </div>

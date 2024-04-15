@@ -11,9 +11,8 @@ const MainLayout = ({
         {" "}
         <Header />
       </div>
-      <div className="h-[92vh] w-full bg-gray-100 overflow-y-auto">
-        {children}
-      </div>
+      <hr className="h-[0.3vh] bg-gray-200" />
+      <div className="h-[91.7vh] w-full  overflow-y-auto">{children}</div>
     </main>
   );
 };

@@ -16,7 +16,6 @@ const MerchantTransactionId = () => {
   const CheckPaymentStatus = async (url: string) => {
     try {
       const resposne = await api.get(url);
-      console.log(resposne.data);
 
       if (resposne.data.success) {
         setStatus("success");

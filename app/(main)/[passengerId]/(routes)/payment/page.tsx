@@ -18,12 +18,16 @@ const CardPayment = () => {
 
   const handlePayment = async () => {
     setIsLoading(true);
+    const fullurl = window.location.href;
+    const baseUrl = fullurl.split("/").slice(0, 3).join("/");
     try {
-      const response: any = await api.post("/payment", { amount: amount });
+      const response: any = await api.post("/payment", {
+        amount: amount,
+        baseUrl: baseUrl,
+      });
       if (response?.data?.success) {
         const paymentPortalURL =
           response?.data?.data?.instrumentResponse?.redirectInfo.url;
-
         router.push(paymentPortalURL);
       }
     } catch (error) {
@@ -36,12 +40,12 @@ const CardPayment = () => {
     <div className="w-full flex flex-col justify-center items-center h-[100vh] gap-y-4">
       <div>
         {" "}
-        <Label>Recharge amount</Label>
+        <Label className="text-xl font-bold">Recharge amount</Label>
       </div>
       <Input
         type="number"
-        placeholder="amount"
-        className="md:w-[30%] w-[80%] "
+        placeholder="Amount in rupees"
+        className="md:w-[20%] w-[80%] "
         value={amount}
         onChange={(e: any) => {
           setAmount(e.target.value);
@@ -50,10 +54,14 @@ const CardPayment = () => {
 
       <Button
         onClick={handlePayment}
-        disabled={isLoading}
-        className="bg-purple-600  hover:bg-purple-500"
+        disabled={isLoading || amount.length == 0}
+        className="bg-purple-800  hover:bg-purple-700"
       >
-        {isLoading ? "Processing..." : "Make Payment"}
+        {amount.length == 0
+          ? "Enter amount"
+          : isLoading
+          ? "Processing..."
+          : "Make Payment"}
       </Button>
     </div>
   );

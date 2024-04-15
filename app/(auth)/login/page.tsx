@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import api from "@/helper/api";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 const formSchema = z.object({
   email_id: z.string().min(5, { message: "Enter a valid email id." }).max(50),
@@ -27,6 +29,7 @@ const formSchema = z.object({
 
 const Login = () => {
   const { toast } = useToast();
+  const [showPass, setShowPass] = useState<boolean>(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,7 +63,17 @@ const Login = () => {
       </div>
       <div className="bg-white p-14 rounded-2xl">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 relative"
+          >
+            {/* <Button
+              variant="outline"
+              className="text-black w-12 p-4 absolute right-0 bottom-[4.5rem] "
+              onClick={() => setShowPass(!showPass)}
+            >
+              {showPass ? <EyeIcon /> : <EyeOffIcon />}
+            </Button> */}
             <FormField
               control={form.control}
               name="email_id"
@@ -81,7 +94,11 @@ const Login = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="password" {...field} />
+                    <Input
+                      type={showPass ? "text" : "password"}
+                      placeholder="password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
